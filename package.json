@@ -9,6 +9,7 @@
     "scripts": {
         "dev": "webpack-dev-server",
         "server": "nodemon server/index.js",
+        "build": "webpack -p",
         "webpack": "webpack -p",
         "start": "node server/index.js",
         "test": "echo \"Error: no test specified\" && exit 1"

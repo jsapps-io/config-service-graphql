@@ -1,0 +1,17 @@
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+    - 'node_modules'
+services:
+#  - redis-server
+  - docker
+#  - postgresql
+#  - couchdb
+node_js:
+  - '10'
+script:
+  - yarn build
+  - yarn docker
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

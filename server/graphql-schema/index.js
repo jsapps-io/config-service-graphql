@@ -1,17 +1,17 @@
 const graphql = require('graphql');
 const pool = require('../db/sql_pool.js');
 
-const { 
+const {
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLID,
-  GraphQLString, 
-  GraphQLInt, 
+  GraphQLString,
+  GraphQLInt,
   GraphQLBoolean,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
 } = graphql;
-  
+
 const AppsType = new GraphQLObjectType({
   name: 'Apps',
   fields: () => ({
@@ -32,15 +32,16 @@ const AppsType = new GraphQLObjectType({
     everyRelatedTenants: {
       type: new GraphQLList(TenantsType),
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString }
-  })
+    updatedAt: { type: GraphQLString },
+  }),
 });
 
 const ThemesType = new GraphQLObjectType({
@@ -59,15 +60,16 @@ const ThemesType = new GraphQLObjectType({
     everyRelatedTenants: {
       type: new GraphQLList(TenantsType),
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     updatedAt: { type: GraphQLString },
-    createdAt: { type: GraphQLString }
-  })
+    createdAt: { type: GraphQLString },
+  }),
 });
 
 const TenantsType = new GraphQLObjectType({
@@ -80,46 +82,50 @@ const TenantsType = new GraphQLObjectType({
     relatedApps: {
       type: AppsType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Apps" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Apps" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     relatedPreferences: {
       type: PreferencesType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Preferences" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Preferences" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     relatedUaainfo: {
       type: UaainfoType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Uaainfo" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Uaainfo" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     relatedConfig: {
       type: ConfigType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Config" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Config" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     metadata: { type: GraphQLString },
     createdAt: { type: GraphQLString },
     updatedAt: { type: GraphQLString },
     context: { type: GraphQLString },
     shared: { type: GraphQLBoolean },
-    appConfigurationUri: { type: GraphQLString }
-  })
+    appConfigurationUri: { type: GraphQLString },
+  }),
 });
 
 const GlobalconfigType = new GraphQLObjectType({
@@ -137,15 +143,16 @@ const GlobalconfigType = new GraphQLObjectType({
     relatedTenants: {
       type: TenantsType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString }
-  })
+    updatedAt: { type: GraphQLString },
+  }),
 });
 
 const PreferencesType = new GraphQLObjectType({
@@ -155,11 +162,12 @@ const PreferencesType = new GraphQLObjectType({
     relatedConfig: {
       type: ConfigType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Config" WHERE "preferences" = '${parent.id}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Config" WHERE "preferences" = '${parent.id}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     name: { type: GraphQLString },
     metadata: { type: GraphQLString },
@@ -168,15 +176,16 @@ const PreferencesType = new GraphQLObjectType({
     relatedTenants: {
       type: TenantsType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString }
-  })
+    updatedAt: { type: GraphQLString },
+  }),
 });
 
 const UaainfoType = new GraphQLObjectType({
@@ -190,13 +199,14 @@ const UaainfoType = new GraphQLObjectType({
     relatedTenants: {
       type: TenantsType,
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
-    }
-  })
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
+    },
+  }),
 });
 
 const ConfigType = new GraphQLObjectType({
@@ -207,11 +217,12 @@ const ConfigType = new GraphQLObjectType({
     everyRelatedTenants: {
       type: new GraphQLList(TenantsType),
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants" WHERE "predixZoneId" = '${parent.predixZoneId}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     name: { type: GraphQLString },
     apps: { type: GraphQLString },
@@ -220,11 +231,12 @@ const ConfigType = new GraphQLObjectType({
     everyRelatedPreferences: {
       type: new GraphQLList(PreferencesType),
       resolve(parent, args) {
-        const sql = `SELECT * FROM "Preferences" WHERE "id" = '${parent.preferences}';`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Preferences" WHERE "id" = '${parent.preferences}';`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     profile: { type: GraphQLString },
     settings: { type: GraphQLString },
@@ -233,8 +245,8 @@ const ConfigType = new GraphQLObjectType({
     globalScripts: { type: GraphQLString },
     globalConfig: { type: GraphQLString },
     contextPath: { type: GraphQLString },
-    themes: { type: GraphQLString }
-  })
+    themes: { type: GraphQLString },
+  }),
 });
 
 const RootQuery = new GraphQLObjectType({
@@ -243,137 +255,151 @@ const RootQuery = new GraphQLObjectType({
     everyApps: {
       type: new GraphQLList(AppsType),
       resolve() {
-        const sql = `SELECT * FROM "Apps";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Apps";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     apps: {
       type: AppsType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Apps" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyThemes: {
       type: new GraphQLList(ThemesType),
       resolve() {
-        const sql = `SELECT * FROM "Themes";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Themes";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     themes: {
       type: ThemesType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Themes" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyTenants: {
       type: new GraphQLList(TenantsType),
       resolve() {
-        const sql = `SELECT * FROM "Tenants";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Tenants";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     tenants: {
       type: TenantsType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Tenants" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyGlobalconfig: {
       type: new GraphQLList(GlobalconfigType),
       resolve() {
-        const sql = `SELECT * FROM "Globalconfig";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Globalconfig";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     globalconfig: {
       type: GlobalconfigType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Globalconfig" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyPreferences: {
       type: new GraphQLList(PreferencesType),
       resolve() {
-        const sql = `SELECT * FROM "Preferences";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Preferences";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     preferences: {
       type: PreferencesType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Preferences" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyUaainfo: {
       type: new GraphQLList(UaainfoType),
       resolve() {
-        const sql = `SELECT * FROM "Uaainfo";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Uaainfo";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     uaainfo: {
       type: UaainfoType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Uaainfo" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     everyConfig: {
       type: new GraphQLList(ConfigType),
       resolve() {
-        const sql = `SELECT * FROM "Config";`
-        return pool.query(sql)
-          .then(res => res.rows)
-          .catch(err => console.log('Error: ', err))
-      }
+        const sql = `SELECT * FROM "Config";`;
+        return pool
+          .query(sql)
+          .then((res) => res.rows)
+          .catch((err) => console.log('Error: ', err));
+      },
     },
     config: {
       type: ConfigType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         const sql = `SELECT * FROM "Config" WHERE id = '${args.id}';`;
-        return pool.query(sql)
-          .then(res => res.rows[0])
-          .catch(err => console.log('Error: ', err))
-      }
-    }
-  }
+        return pool
+          .query(sql)
+          .then((res) => res.rows[0])
+          .catch((err) => console.log('Error: ', err));
+      },
+    },
+  },
 });
 
 const Mutation = new GraphQLObjectType({
@@ -397,25 +423,25 @@ const Mutation = new GraphQLObjectType({
         items: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Apps" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateApps: {
       type: AppsType,
@@ -435,7 +461,7 @@ const Mutation = new GraphQLObjectType({
         items: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -443,39 +469,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Apps" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Apps" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteApps: {
       type: AppsType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Apps" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Apps" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addThemes: {
       type: ThemesType,
@@ -491,25 +517,25 @@ const Mutation = new GraphQLObjectType({
         default: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         updatedAt: { type: GraphQLString },
-        createdAt: { type: GraphQLString }
+        createdAt: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Themes" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateThemes: {
       type: ThemesType,
@@ -525,7 +551,7 @@ const Mutation = new GraphQLObjectType({
         default: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         updatedAt: { type: GraphQLString },
-        createdAt: { type: GraphQLString }
+        createdAt: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -533,39 +559,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Themes" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Themes" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteThemes: {
       type: ThemesType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Themes" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Themes" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addTenants: {
       type: TenantsType,
@@ -579,25 +605,25 @@ const Mutation = new GraphQLObjectType({
         updatedAt: { type: GraphQLString },
         context: { type: GraphQLString },
         shared: { type: GraphQLBoolean },
-        appConfigurationUri: { type: GraphQLString }
+        appConfigurationUri: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Tenants" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateTenants: {
       type: TenantsType,
@@ -611,7 +637,7 @@ const Mutation = new GraphQLObjectType({
         updatedAt: { type: GraphQLString },
         context: { type: GraphQLString },
         shared: { type: GraphQLBoolean },
-        appConfigurationUri: { type: GraphQLString }
+        appConfigurationUri: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -619,39 +645,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Tenants" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Tenants" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteTenants: {
       type: TenantsType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Tenants" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Tenants" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addGlobalconfig: {
       type: GlobalconfigType,
@@ -666,25 +692,25 @@ const Mutation = new GraphQLObjectType({
         globalCss: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Globalconfig" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateGlobalconfig: {
       type: GlobalconfigType,
@@ -699,7 +725,7 @@ const Mutation = new GraphQLObjectType({
         globalCss: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -707,39 +733,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Globalconfig" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Globalconfig" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteGlobalconfig: {
       type: GlobalconfigType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Globalconfig" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Globalconfig" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addPreferences: {
       type: PreferencesType,
@@ -750,25 +776,25 @@ const Mutation = new GraphQLObjectType({
         level: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Preferences" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updatePreferences: {
       type: PreferencesType,
@@ -779,7 +805,7 @@ const Mutation = new GraphQLObjectType({
         level: { type: GraphQLString },
         predixZoneId: { type: GraphQLString },
         createdAt: { type: GraphQLString },
-        updatedAt: { type: GraphQLString }
+        updatedAt: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -787,39 +813,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Preferences" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Preferences" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deletePreferences: {
       type: PreferencesType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Preferences" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Preferences" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addUaainfo: {
       type: UaainfoType,
@@ -828,25 +854,25 @@ const Mutation = new GraphQLObjectType({
         uaaUri: { type: GraphQLString },
         clientId: { type: GraphQLString },
         clientSecret: { type: GraphQLString },
-        predixZoneId: { type: GraphQLString }
+        predixZoneId: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Uaainfo" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateUaainfo: {
       type: UaainfoType,
@@ -855,7 +881,7 @@ const Mutation = new GraphQLObjectType({
         uaaUri: { type: GraphQLString },
         clientId: { type: GraphQLString },
         clientSecret: { type: GraphQLString },
-        predixZoneId: { type: GraphQLString }
+        predixZoneId: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -863,39 +889,39 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Uaainfo" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Uaainfo" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteUaainfo: {
       type: UaainfoType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Uaainfo" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `DELETE FROM "Uaainfo" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     addConfig: {
       type: ConfigType,
@@ -913,25 +939,25 @@ const Mutation = new GraphQLObjectType({
         globalScripts: { type: GraphQLString },
         globalConfig: { type: GraphQLString },
         contextPath: { type: GraphQLString },
-        themes: { type: GraphQLString }
+        themes: { type: GraphQLString },
       },
       resolve(parent, args) {
-        const columns = Object.keys(args).map(el => `"${el}"`);
-        const values = Object.values(args).map(el => `'${el}'`);
+        const columns = Object.keys(args).map((el) => `"${el}"`);
+        const values = Object.values(args).map((el) => `'${el}'`);
         const sql = `INSERT INTO "Config" (${columns}) VALUES (${values}) RETURNING *`;
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     updateConfig: {
       type: ConfigType,
@@ -949,7 +975,7 @@ const Mutation = new GraphQLObjectType({
         globalScripts: { type: GraphQLString },
         globalConfig: { type: GraphQLString },
         contextPath: { type: GraphQLString },
-        themes: { type: GraphQLString }
+        themes: { type: GraphQLString },
       },
       resolve(parent, args) {
         let updateValues = '';
@@ -957,44 +983,44 @@ const Mutation = new GraphQLObjectType({
           if (updateValues.length > 0) updateValues += `, `;
           updateValues += `"${prop}" = '${args[prop]}' `;
         }
-        const sql = `UPDATE "Config" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
+        const sql = `UPDATE "Config" SET ${updateValues} WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
     },
     deleteConfig: {
       type: ConfigType,
-      args: { id: { type: GraphQLID}},
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        const sql = `DELETE FROM "Config" WHERE id = '${args.id}' RETURNING *;`
-        return pool.connect()
-          .then(client => {
-            return client.query(sql)
-              .then(res => {
-                client.release();
-                return res.rows[0];
-              })
-              .catch(err => {
-                client.release();
-                console.log('Error: ', err);
-              })
-          })
-      }
-    }
-  }
+        const sql = `DELETE FROM "Config" WHERE id = '${args.id}' RETURNING *;`;
+        return pool.connect().then((client) => {
+          return client
+            .query(sql)
+            .then((res) => {
+              client.release();
+              return res.rows[0];
+            })
+            .catch((err) => {
+              client.release();
+              console.log('Error: ', err);
+            });
+        });
+      },
+    },
+  },
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
-  mutation: Mutation
+  mutation: Mutation,
 });

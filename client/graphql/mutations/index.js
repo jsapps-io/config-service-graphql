@@ -1,8 +1,40 @@
 import { gql } from 'apollo-boost';
 
 const addAppsMutation = gql`
-  mutation($uri: String, $host: String, $path: String, $template: String, $order: Int, $icon: String, $navService: String, $location: String, $capabilities: String, $default: Boolean, $label: String!, $items: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    addApps(uri: $uri, host: $host, path: $path, template: $template, order: $order, icon: $icon, navService: $navService, location: $location, capabilities: $capabilities, default: $default, label: $label, items: $items, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $uri: String
+    $host: String
+    $path: String
+    $template: String
+    $order: Int
+    $icon: String
+    $navService: String
+    $location: String
+    $capabilities: String
+    $default: Boolean
+    $label: String!
+    $items: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    addApps(
+      uri: $uri
+      host: $host
+      path: $path
+      template: $template
+      order: $order
+      icon: $icon
+      navService: $navService
+      location: $location
+      capabilities: $capabilities
+      default: $default
+      label: $label
+      items: $items
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       uri
       host
@@ -21,11 +53,45 @@ const addAppsMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const updateAppsMutation = gql`
-  mutation($id: ID!, $uri: String, $host: String, $path: String, $template: String, $order: Int, $icon: String, $navService: String, $location: String, $capabilities: String, $default: Boolean, $label: String!, $items: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    updateApps(id: $id, uri: $uri, host: $host, path: $path, template: $template, order: $order, icon: $icon, navService: $navService, location: $location, capabilities: $capabilities, default: $default, label: $label, items: $items, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $id: ID!
+    $uri: String
+    $host: String
+    $path: String
+    $template: String
+    $order: Int
+    $icon: String
+    $navService: String
+    $location: String
+    $capabilities: String
+    $default: Boolean
+    $label: String!
+    $items: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    updateApps(
+      id: $id
+      uri: $uri
+      host: $host
+      path: $path
+      template: $template
+      order: $order
+      icon: $icon
+      navService: $navService
+      location: $location
+      capabilities: $capabilities
+      default: $default
+      label: $label
+      items: $items
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       uri
       host
@@ -44,11 +110,11 @@ const updateAppsMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const deleteAppsMutation = gql`
-  mutation($id: ID!){
-    deleteApps(id: $id){
+  mutation($id: ID!) {
+    deleteApps(id: $id) {
       id
       uri
       host
@@ -67,11 +133,35 @@ const deleteAppsMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const addThemesMutation = gql`
-  mutation($uri: String, $baseUri: String, $main: String, $error: String, $errorChromeless: String, $displayName: String, $description: String, $default: String, $predixZoneId: String, $updatedAt: String, $createdAt: String) {
-    addThemes(uri: $uri, baseUri: $baseUri, main: $main, error: $error, errorChromeless: $errorChromeless, displayName: $displayName, description: $description, default: $default, predixZoneId: $predixZoneId, updatedAt: $updatedAt, createdAt: $createdAt) {
+  mutation(
+    $uri: String
+    $baseUri: String
+    $main: String
+    $error: String
+    $errorChromeless: String
+    $displayName: String
+    $description: String
+    $default: String
+    $predixZoneId: String
+    $updatedAt: String
+    $createdAt: String
+  ) {
+    addThemes(
+      uri: $uri
+      baseUri: $baseUri
+      main: $main
+      error: $error
+      errorChromeless: $errorChromeless
+      displayName: $displayName
+      description: $description
+      default: $default
+      predixZoneId: $predixZoneId
+      updatedAt: $updatedAt
+      createdAt: $createdAt
+    ) {
       id
       uri
       baseUri
@@ -86,11 +176,37 @@ const addThemesMutation = gql`
       createdAt
     }
   }
-`
+`;
 
 const updateThemesMutation = gql`
-  mutation($id: ID!, $uri: String, $baseUri: String, $main: String, $error: String, $errorChromeless: String, $displayName: String, $description: String, $default: String, $predixZoneId: String, $updatedAt: String, $createdAt: String) {
-    updateThemes(id: $id, uri: $uri, baseUri: $baseUri, main: $main, error: $error, errorChromeless: $errorChromeless, displayName: $displayName, description: $description, default: $default, predixZoneId: $predixZoneId, updatedAt: $updatedAt, createdAt: $createdAt) {
+  mutation(
+    $id: ID!
+    $uri: String
+    $baseUri: String
+    $main: String
+    $error: String
+    $errorChromeless: String
+    $displayName: String
+    $description: String
+    $default: String
+    $predixZoneId: String
+    $updatedAt: String
+    $createdAt: String
+  ) {
+    updateThemes(
+      id: $id
+      uri: $uri
+      baseUri: $baseUri
+      main: $main
+      error: $error
+      errorChromeless: $errorChromeless
+      displayName: $displayName
+      description: $description
+      default: $default
+      predixZoneId: $predixZoneId
+      updatedAt: $updatedAt
+      createdAt: $createdAt
+    ) {
       id
       uri
       baseUri
@@ -105,11 +221,11 @@ const updateThemesMutation = gql`
       createdAt
     }
   }
-`
+`;
 
 const deleteThemesMutation = gql`
-  mutation($id: ID!){
-    deleteThemes(id: $id){
+  mutation($id: ID!) {
+    deleteThemes(id: $id) {
       id
       uri
       baseUri
@@ -124,11 +240,31 @@ const deleteThemesMutation = gql`
       createdAt
     }
   }
-`
+`;
 
 const addTenantsMutation = gql`
-  mutation($host: String, $route: String, $predixZoneId: String, $metadata: String, $createdAt: String, $updatedAt: String, $context: String, $shared: Boolean, $appConfigurationUri: String) {
-    addTenants(host: $host, route: $route, predixZoneId: $predixZoneId, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, context: $context, shared: $shared, appConfigurationUri: $appConfigurationUri) {
+  mutation(
+    $host: String
+    $route: String
+    $predixZoneId: String
+    $metadata: String
+    $createdAt: String
+    $updatedAt: String
+    $context: String
+    $shared: Boolean
+    $appConfigurationUri: String
+  ) {
+    addTenants(
+      host: $host
+      route: $route
+      predixZoneId: $predixZoneId
+      metadata: $metadata
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+      context: $context
+      shared: $shared
+      appConfigurationUri: $appConfigurationUri
+    ) {
       id
       host
       route
@@ -141,11 +277,33 @@ const addTenantsMutation = gql`
       appConfigurationUri
     }
   }
-`
+`;
 
 const updateTenantsMutation = gql`
-  mutation($id: ID!, $host: String, $route: String, $predixZoneId: String, $metadata: String, $createdAt: String, $updatedAt: String, $context: String, $shared: Boolean, $appConfigurationUri: String) {
-    updateTenants(id: $id, host: $host, route: $route, predixZoneId: $predixZoneId, metadata: $metadata, createdAt: $createdAt, updatedAt: $updatedAt, context: $context, shared: $shared, appConfigurationUri: $appConfigurationUri) {
+  mutation(
+    $id: ID!
+    $host: String
+    $route: String
+    $predixZoneId: String
+    $metadata: String
+    $createdAt: String
+    $updatedAt: String
+    $context: String
+    $shared: Boolean
+    $appConfigurationUri: String
+  ) {
+    updateTenants(
+      id: $id
+      host: $host
+      route: $route
+      predixZoneId: $predixZoneId
+      metadata: $metadata
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+      context: $context
+      shared: $shared
+      appConfigurationUri: $appConfigurationUri
+    ) {
       id
       host
       route
@@ -158,11 +316,11 @@ const updateTenantsMutation = gql`
       appConfigurationUri
     }
   }
-`
+`;
 
 const deleteTenantsMutation = gql`
-  mutation($id: ID!){
-    deleteTenants(id: $id){
+  mutation($id: ID!) {
+    deleteTenants(id: $id) {
       id
       host
       route
@@ -175,11 +333,33 @@ const deleteTenantsMutation = gql`
       appConfigurationUri
     }
   }
-`
+`;
 
 const addGlobalconfigMutation = gql`
-  mutation($name: String, $logo: String, $logoUri: String, $theme: String, $applicationChrome: String, $globalScripts: String, $globalCss: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    addGlobalconfig(name: $name, logo: $logo, logoUri: $logoUri, theme: $theme, applicationChrome: $applicationChrome, globalScripts: $globalScripts, globalCss: $globalCss, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $name: String
+    $logo: String
+    $logoUri: String
+    $theme: String
+    $applicationChrome: String
+    $globalScripts: String
+    $globalCss: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    addGlobalconfig(
+      name: $name
+      logo: $logo
+      logoUri: $logoUri
+      theme: $theme
+      applicationChrome: $applicationChrome
+      globalScripts: $globalScripts
+      globalCss: $globalCss
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       name
       logo
@@ -193,11 +373,35 @@ const addGlobalconfigMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const updateGlobalconfigMutation = gql`
-  mutation($id: ID!, $name: String, $logo: String, $logoUri: String, $theme: String, $applicationChrome: String, $globalScripts: String, $globalCss: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    updateGlobalconfig(id: $id, name: $name, logo: $logo, logoUri: $logoUri, theme: $theme, applicationChrome: $applicationChrome, globalScripts: $globalScripts, globalCss: $globalCss, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $id: ID!
+    $name: String
+    $logo: String
+    $logoUri: String
+    $theme: String
+    $applicationChrome: String
+    $globalScripts: String
+    $globalCss: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    updateGlobalconfig(
+      id: $id
+      name: $name
+      logo: $logo
+      logoUri: $logoUri
+      theme: $theme
+      applicationChrome: $applicationChrome
+      globalScripts: $globalScripts
+      globalCss: $globalCss
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       name
       logo
@@ -211,11 +415,11 @@ const updateGlobalconfigMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const deleteGlobalconfigMutation = gql`
-  mutation($id: ID!){
-    deleteGlobalconfig(id: $id){
+  mutation($id: ID!) {
+    deleteGlobalconfig(id: $id) {
       id
       name
       logo
@@ -229,11 +433,25 @@ const deleteGlobalconfigMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const addPreferencesMutation = gql`
-  mutation($name: String, $metadata: String, $level: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    addPreferences(name: $name, metadata: $metadata, level: $level, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $name: String
+    $metadata: String
+    $level: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    addPreferences(
+      name: $name
+      metadata: $metadata
+      level: $level
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       name
       metadata
@@ -243,11 +461,27 @@ const addPreferencesMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const updatePreferencesMutation = gql`
-  mutation($id: ID!, $name: String, $metadata: String, $level: String, $predixZoneId: String, $createdAt: String, $updatedAt: String) {
-    updatePreferences(id: $id, name: $name, metadata: $metadata, level: $level, predixZoneId: $predixZoneId, createdAt: $createdAt, updatedAt: $updatedAt) {
+  mutation(
+    $id: ID!
+    $name: String
+    $metadata: String
+    $level: String
+    $predixZoneId: String
+    $createdAt: String
+    $updatedAt: String
+  ) {
+    updatePreferences(
+      id: $id
+      name: $name
+      metadata: $metadata
+      level: $level
+      predixZoneId: $predixZoneId
+      createdAt: $createdAt
+      updatedAt: $updatedAt
+    ) {
       id
       name
       metadata
@@ -257,11 +491,11 @@ const updatePreferencesMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const deletePreferencesMutation = gql`
-  mutation($id: ID!){
-    deletePreferences(id: $id){
+  mutation($id: ID!) {
+    deletePreferences(id: $id) {
       id
       name
       metadata
@@ -271,11 +505,16 @@ const deletePreferencesMutation = gql`
       updatedAt
     }
   }
-`
+`;
 
 const addUaainfoMutation = gql`
   mutation($uaaUri: String, $clientId: String, $clientSecret: String, $predixZoneId: String) {
-    addUaainfo(uaaUri: $uaaUri, clientId: $clientId, clientSecret: $clientSecret, predixZoneId: $predixZoneId) {
+    addUaainfo(
+      uaaUri: $uaaUri
+      clientId: $clientId
+      clientSecret: $clientSecret
+      predixZoneId: $predixZoneId
+    ) {
       id
       uaaUri
       clientId
@@ -283,11 +522,23 @@ const addUaainfoMutation = gql`
       predixZoneId
     }
   }
-`
+`;
 
 const updateUaainfoMutation = gql`
-  mutation($id: ID!, $uaaUri: String, $clientId: String, $clientSecret: String, $predixZoneId: String) {
-    updateUaainfo(id: $id, uaaUri: $uaaUri, clientId: $clientId, clientSecret: $clientSecret, predixZoneId: $predixZoneId) {
+  mutation(
+    $id: ID!
+    $uaaUri: String
+    $clientId: String
+    $clientSecret: String
+    $predixZoneId: String
+  ) {
+    updateUaainfo(
+      id: $id
+      uaaUri: $uaaUri
+      clientId: $clientId
+      clientSecret: $clientSecret
+      predixZoneId: $predixZoneId
+    ) {
       id
       uaaUri
       clientId
@@ -295,11 +546,11 @@ const updateUaainfoMutation = gql`
       predixZoneId
     }
   }
-`
+`;
 
 const deleteUaainfoMutation = gql`
-  mutation($id: ID!){
-    deleteUaainfo(id: $id){
+  mutation($id: ID!) {
+    deleteUaainfo(id: $id) {
       id
       uaaUri
       clientId
@@ -307,11 +558,39 @@ const deleteUaainfoMutation = gql`
       predixZoneId
     }
   }
-`
+`;
 
 const addConfigMutation = gql`
-  mutation($predixZoneId: String, $name: String, $apps: String, $theme: String, $preferences: String, $profile: String, $settings: String, $main: String, $globalCSS: String, $globalScripts: String, $globalConfig: String, $contextPath: String, $themes: String) {
-    addConfig(predixZoneId: $predixZoneId, name: $name, apps: $apps, theme: $theme, preferences: $preferences, profile: $profile, settings: $settings, main: $main, globalCSS: $globalCSS, globalScripts: $globalScripts, globalConfig: $globalConfig, contextPath: $contextPath, themes: $themes) {
+  mutation(
+    $predixZoneId: String
+    $name: String
+    $apps: String
+    $theme: String
+    $preferences: String
+    $profile: String
+    $settings: String
+    $main: String
+    $globalCSS: String
+    $globalScripts: String
+    $globalConfig: String
+    $contextPath: String
+    $themes: String
+  ) {
+    addConfig(
+      predixZoneId: $predixZoneId
+      name: $name
+      apps: $apps
+      theme: $theme
+      preferences: $preferences
+      profile: $profile
+      settings: $settings
+      main: $main
+      globalCSS: $globalCSS
+      globalScripts: $globalScripts
+      globalConfig: $globalConfig
+      contextPath: $contextPath
+      themes: $themes
+    ) {
       id
       predixZoneId
       name
@@ -328,11 +607,41 @@ const addConfigMutation = gql`
       themes
     }
   }
-`
+`;
 
 const updateConfigMutation = gql`
-  mutation($id: ID!, $predixZoneId: String, $name: String, $apps: String, $theme: String, $preferences: String, $profile: String, $settings: String, $main: String, $globalCSS: String, $globalScripts: String, $globalConfig: String, $contextPath: String, $themes: String) {
-    updateConfig(id: $id, predixZoneId: $predixZoneId, name: $name, apps: $apps, theme: $theme, preferences: $preferences, profile: $profile, settings: $settings, main: $main, globalCSS: $globalCSS, globalScripts: $globalScripts, globalConfig: $globalConfig, contextPath: $contextPath, themes: $themes) {
+  mutation(
+    $id: ID!
+    $predixZoneId: String
+    $name: String
+    $apps: String
+    $theme: String
+    $preferences: String
+    $profile: String
+    $settings: String
+    $main: String
+    $globalCSS: String
+    $globalScripts: String
+    $globalConfig: String
+    $contextPath: String
+    $themes: String
+  ) {
+    updateConfig(
+      id: $id
+      predixZoneId: $predixZoneId
+      name: $name
+      apps: $apps
+      theme: $theme
+      preferences: $preferences
+      profile: $profile
+      settings: $settings
+      main: $main
+      globalCSS: $globalCSS
+      globalScripts: $globalScripts
+      globalConfig: $globalConfig
+      contextPath: $contextPath
+      themes: $themes
+    ) {
       id
       predixZoneId
       name
@@ -349,11 +658,11 @@ const updateConfigMutation = gql`
       themes
     }
   }
-`
+`;
 
 const deleteConfigMutation = gql`
-  mutation($id: ID!){
-    deleteConfig(id: $id){
+  mutation($id: ID!) {
+    deleteConfig(id: $id) {
       id
       predixZoneId
       name
@@ -370,7 +679,7 @@ const deleteConfigMutation = gql`
       themes
     }
   }
-`
+`;
 
 export {
   addAppsMutation,

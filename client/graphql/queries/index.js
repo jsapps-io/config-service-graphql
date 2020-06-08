@@ -21,7 +21,7 @@ const queryEveryApps = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryAppsById = gql`
   query($id: ID!) {
@@ -44,7 +44,7 @@ const queryAppsById = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryEveryThemes = gql`
   {
@@ -63,7 +63,7 @@ const queryEveryThemes = gql`
       createdAt
     }
   }
-`
+`;
 
 const queryThemesById = gql`
   query($id: ID!) {
@@ -82,7 +82,7 @@ const queryThemesById = gql`
       createdAt
     }
   }
-`
+`;
 
 const queryEveryTenants = gql`
   {
@@ -99,7 +99,7 @@ const queryEveryTenants = gql`
       appConfigurationUri
     }
   }
-`
+`;
 
 const queryTenantsById = gql`
   query($id: ID!) {
@@ -116,7 +116,7 @@ const queryTenantsById = gql`
       appConfigurationUri
     }
   }
-`
+`;
 
 const queryEveryGlobalconfig = gql`
   {
@@ -134,7 +134,7 @@ const queryEveryGlobalconfig = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryGlobalconfigById = gql`
   query($id: ID!) {
@@ -152,7 +152,7 @@ const queryGlobalconfigById = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryEveryPreferences = gql`
   {
@@ -166,7 +166,7 @@ const queryEveryPreferences = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryPreferencesById = gql`
   query($id: ID!) {
@@ -180,7 +180,7 @@ const queryPreferencesById = gql`
       updatedAt
     }
   }
-`
+`;
 
 const queryEveryUaainfo = gql`
   {
@@ -192,7 +192,7 @@ const queryEveryUaainfo = gql`
       predixZoneId
     }
   }
-`
+`;
 
 const queryUaainfoById = gql`
   query($id: ID!) {
@@ -204,7 +204,7 @@ const queryUaainfoById = gql`
       predixZoneId
     }
   }
-`
+`;
 
 const queryEveryConfig = gql`
   {
@@ -225,7 +225,7 @@ const queryEveryConfig = gql`
       themes
     }
   }
-`
+`;
 
 const queryConfigById = gql`
   query($id: ID!) {
@@ -246,6 +246,21 @@ const queryConfigById = gql`
       themes
     }
   }
-`
+`;
 
-export { queryEveryApps, queryAppsById , queryEveryThemes, queryThemesById , queryEveryTenants, queryTenantsById , queryEveryGlobalconfig, queryGlobalconfigById , queryEveryPreferences, queryPreferencesById , queryEveryUaainfo, queryUaainfoById , queryEveryConfig, queryConfigById };
+export {
+  queryEveryApps,
+  queryAppsById,
+  queryEveryThemes,
+  queryThemesById,
+  queryEveryTenants,
+  queryTenantsById,
+  queryEveryGlobalconfig,
+  queryGlobalconfigById,
+  queryEveryPreferences,
+  queryPreferencesById,
+  queryEveryUaainfo,
+  queryUaainfoById,
+  queryEveryConfig,
+  queryConfigById,
+};

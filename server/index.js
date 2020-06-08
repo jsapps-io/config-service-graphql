@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
@@ -6,13 +5,19 @@ const schema = require('./graphql-schema');
 const path = require('path');
 const app = express();
 
-app.use(express.static(path.join(__dirname, './public')))
+const {PORT = 4000} = process.env;
 
-app.use('/graphql', graphqlHTTP({
+app.use(express.static(path.join(__dirname, './public')));
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    
     schema,
-    graphiql: false //Set to true to view GraphiQl in browser at /graphql
-}));
+    graphiql: true,
+  })
+);
 
-app.listen(4000, () => {
-  console.log('Listening on 4000')
+app.listen(PORT, () => {
+  console.log(`Listening on ${PORT}`);
 });
